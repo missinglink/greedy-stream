@@ -1,0 +1,14 @@
+{
+  "name": "greedy-stream",
+  "version": "0.0.0",
+  "description": "A stream which is so greedy it takes input as fast as it can get it and outputs results as fast as they're ready",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peter Johnson <insomnia@rcpt.at>",
+  "license": "MIT",
+  "dependencies": {
+    "readable-stream": "^1.0.27-1"
+  }
+}
