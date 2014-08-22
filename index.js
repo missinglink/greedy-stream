@@ -23,7 +23,15 @@ module.exports = function( options, transform ){
   }
 
   var transforms = 0,
-      resolved = 0;
+      resolved = 0,
+      timeout = null;
+
+  var tryEnd = function( chunk ){
+    if( resolved === transforms ){
+      if( chunk ){ this.push( chunk ); }
+      this.push( null ); // stream end
+    }
+  };
 
   stream._transform = function( chunk, enc, next ){
 
@@ -32,9 +40,11 @@ module.exports = function( options, transform ){
 
     var n = function( err, chunk ){
       if( err ){ this.emit( 'error', err ); }
-      else if( !n.done && ++resolved === transforms ){
-        if( chunk ){ this.push( chunk ); }
-        this.push( null ); // stream end
+      resolved++;
+      if( !n.done ){
+        // wait 1s then see if we are finished
+        clearTimeout( timeout );
+        timeout = setTimeout( tryEnd.bind( this, chunk ), 1000 );
       }
       n.done = true; // dont resolve the same cb twice
     }.bind(this);
