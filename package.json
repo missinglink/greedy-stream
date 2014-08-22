@@ -1,6 +1,6 @@
 {
   "name": "greedy-stream",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A stream which is so greedy it takes input as fast as it can get it and outputs results as fast as they're ready",
   "main": "index.js",
   "scripts": {
